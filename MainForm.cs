@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Created by SharpDevelop.
  * User: razvan
  * Date: 5/31/2024
@@ -38,7 +38,7 @@ namespace weatherGraphics
 		}
 		public float halfa = 0.0f;
 		public float halfb = 0.0f;
-		public void drawYear(ref float [] an, float hf, ref Pen p, ref Brush b, int ypost, int h)
+		public void drawYear(ref float [] an, float hf, ref Pen p, ref Brush b, int ypost, int h,string d)
 		{
 			//doar pentru date pozitive toate
 			//int h = 300;
@@ -49,15 +49,27 @@ namespace weatherGraphics
 			float y = h-(3*an[0]- hf);
 			g.DrawLine(p, 0, h, 800, h);
 			string s;
+			int correction = 15;
 			for (int i = 0; i < 12; i++) {
 				
 				 x = (1 + i) * ste;
 				 y = h-(3*an[i]- hf);
 				 s = an[i].ToString();
 				 if(s.Length>=5){s = s.Substring(0,5);}
+				
 				 g.DrawString(s,f,b,x+5,ypost);
-				g.DrawLine(p, x, y, px, py);
+				 if(i==0)
+				 {
+				 	 g.DrawString(d,f,b,x-55,ypost);
+				 }
+				
+				 g.DrawString(month[i],f,b,x+5,600-30);
+				 g.DrawLine(p, x, y-correction, px, py-correction);
+				
 				g.DrawLine(p, x, 0, x, 600);
+				g.DrawLine(ph, 0, y, 600, y);
+				
+				g.DrawString(s,f,b,x,y-35);
 				px = x;
 				py = y;
 			}
@@ -101,6 +113,7 @@ namespace weatherGraphics
 		public Pen pa = new Pen(Color.FromArgb(200,156,57,59),3);
 		public Pen pb = new Pen(Color.FromArgb(200,255,100,59),3);
 		public Pen pd = new Pen(Color.FromArgb(200,0,57,100),3);
+		public Pen ph = new Pen(Color.FromArgb(20,0,57,100),1);
 		public Brush ba = new SolidBrush(Color.Blue);
 		public Brush bb = new SolidBrush(Color.Green);
 		public Brush bd = new SolidBrush(Color.Red);
@@ -118,9 +131,9 @@ namespace weatherGraphics
 			
 			caldifsani(ref an1874, ref an1875, ref difani);
 				
-			drawYear(ref an1874,halfa,ref pa,ref ba,10,300);
-			drawYear(ref an1875,halfb, ref pb,ref bb,30,300);
-			drawYear(ref difani,halfa,ref pd, ref bd,60,500);
+			drawYear(ref an1874,halfa,ref pa,ref ba,10,300,"1874");
+			drawYear(ref an1875,halfb, ref pb,ref bb,30,300,"1875");
+			drawYear(ref difani,halfa,ref pd, ref bd,40,500,"1875-1874");
 		}
 		
 	}
