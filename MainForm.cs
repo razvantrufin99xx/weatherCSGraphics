@@ -38,7 +38,7 @@ namespace weatherGraphics
 		}
 		public float halfa = 0.0f;
 		public float halfb = 0.0f;
-		public void drawYear(ref float [] an, float hf, ref Pen p, ref Brush b, int ypost, int h,string d)
+		public void drawYear(ref float [] an, float hf, ref Pen p, ref Brush b, int ypost, int h,string d, int correction)
 		{
 			//doar pentru date pozitive toate
 			//int h = 300;
@@ -49,7 +49,7 @@ namespace weatherGraphics
 			float y = h-(3*an[0]- hf);
 			g.DrawLine(p, 0, h, 800, h);
 			string s;
-			int correction = 15;
+			
 			for (int i = 0; i < 12; i++) {
 				
 				 x = (1 + i) * ste;
@@ -67,7 +67,7 @@ namespace weatherGraphics
 				 g.DrawLine(p, x, y-correction, px, py-correction);
 				 g.DrawEllipse(ph2, x-2, y-correction-2, 4,4);
 				g.DrawLine(ph, x, 0, x, 600);
-				g.DrawLine(ph, 0, y, 600, y);
+				g.DrawLine(ph, 0, y-correction, 600, y-correction);
 				
 				g.DrawString(s,f,b,x,y-35);
 				px = x;
@@ -131,10 +131,10 @@ namespace weatherGraphics
 			 halfb  = findHalfMinMax(maxb, minb);
 			
 			caldifsani(ref an1874, ref an1875, ref difani);
-				
-			drawYear(ref an1874,halfa,ref pa,ref ba,10,300,"1874");
-			drawYear(ref an1875,halfb, ref pb,ref bb,25,300,"1875");
-			drawYear(ref difani,halfa,ref pd, ref bd,40,500,"1875-1874");
+			int correction = 15;	
+			drawYear(ref an1874,halfa,ref pa,ref ba,10,300,"1874",correction);
+			drawYear(ref an1875,halfb, ref pb,ref bb,25,300,"1875",correction);
+			drawYear(ref difani,halfa,ref pd, ref bd,40,500,"1875-1874",0);
 		}
 		
 	}
